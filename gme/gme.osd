@@ -27,17 +27,15 @@
 				<struct name="mediaFileTable">
 					<primitive name="endOffset" type="UInt32"/>
 					<primitive name="unused" type="UInt32"/>
-					<array name="mediaFileTableOffsets" length="4">	<!-- TODO: how to calculate "endOffset - currentpos -1 / 4"?! -->
-						<union name="mediaFileUnion">
-							<struct name="mediaFileInfo">
-								<pointer name="mediaFileOffset" type="UInt32" target="mediaFileContent">
-									<array name="mediaFileContent" length="function() { return this.parent.parent.mediaFileLength.value; }">
-										<primitive name="content" type="UInt8"/>
-									</array>
-								</pointer>
-								<primitive name="mediaFileLength" type="UInt32"/>
-							</struct>
-						</union>
+					<array name="mediaFileTableOffsets" length="function() { return (this.parent.endOffset.value - this.parent.parent.value)/8 - 1; }">	<!-- TODO: how to calculate "endOffset - currentpos -1 / 4"?! -->
+						<struct name="mediaFileInfo">
+							<pointer name="mediaFileOffset" type="UInt32" target="mediaFileContent">
+								<array name="mediaFileContent" length="function() { return this.parent.parent.mediaFileLength.value; }">
+									<primitive name="content" type="UInt8"/>
+								</array>
+							</pointer>
+							<primitive name="mediaFileLength" type="UInt32"/>
+						</struct>
 					</array>
 				</struct>
 			</pointer>
