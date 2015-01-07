@@ -41,7 +41,11 @@
                     <primitive name="empty2" type="UInt32"/>
                     <array name="gameBinaryHeaderTable" length="gameBinaryCount">
                         <struct name="gameBinaryHeaderTableEntry">
-                            <primitive name="binaryAddress" type="UInt32"/>
+                            <pointer name="binaryAddress" type="UInt32">
+                                <array name="binaryData" length="function() { return this.parent.parent.binaryLength.value; }">
+                                    <primitive name="val" type="char" />
+                                </array>
+                            </pointer>
                             <primitive name="binaryLength" type="UInt32"/>  
                             <array name="gameBinaryName" length="8">
                                 <primitive name="val" type="Char" />
