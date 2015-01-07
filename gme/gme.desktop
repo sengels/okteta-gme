@@ -1,0 +1,16 @@
+[Desktop Entry]
+Encoding=UTF-8
+Icon=x-shape-image
+Type=Service
+ServiceTypes=KPluginInfo
+
+Name=GME Header
+Comment=A structure for the tiptoi (gme) file format
+X-KDE-PluginInfo-Author=Patrick Spendrin
+X-KDE-PluginInfo-Email=ps_ml@gmx.de
+X-KDE-PluginInfo-Name=gme
+X-KDE-PluginInfo-Version=1.0
+#X-KDE-PluginInfo-Website=http://www.plugin.org/
+X-KDE-PluginInfo-Category=structure
+X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-EnabledByDefault=false

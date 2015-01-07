@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <struct name="gmeFile">
+        <struct name="gmeHeader">
+            <primitive name="playScriptTableOffset" type="UInt32"/>
+            <primitive name="mediaFileTableOffset" type="UInt32"/>
+            <primitive name="Magic" type="UInt32"/>
+            <primitive name="additionalScriptTableOffset" type="UInt32"/>
+            <primitive name="gameTableOffset" type="UInt32"/>
+            <primitive name="productID" type="UInt32"/>
+            <primitive name="registerInitValues" type="UInt32"/>
+            <primitive name="magicXORValue" type="UInt8"/>
+            <array name="align" length="3">
+                <primitive name="alignEmpty" type="UInt8"/>
+            </array>
+            <union name="formatString">
+                <struct name="formatStringStruct">
+                    <primitive name="formatStringLength" type="UInt8"/>
+                    <array name="formatString" length="formatStringLength">
+                        <primitive name="val" type="Char"/>
+                    </array>
+                </struct>
+                <array name="formatStringByteField" length="64">
+                    <primitive name="val" type="UInt8"/>
+                </array>
+            </union>
+            <primitive name="unknown" type="UInt32"/>
+            <array name="empty" length="13">
+                <primitive name="val" type="UInt8"/>
+            </array>
+            <primitive name="powerOnSoundOffset" type="UInt32"/>
+            <array name="empty" length="23">
+                <primitive name="val" type="UInt8"/>
+            </array>
+            <primitive name="unknownMagicNumberOffset1" type="UInt32"/>
+            <pointer name="gameBinariesOffset" type="UInt32" target="gameBinaries">
+                <struct name="gameBinaries">
+                    <primitive name="gameBinaryCount" type="UInt32"/>
+                    <primitive name="empty0" type="UInt32"/>
+                    <primitive name="empty1" type="UInt32"/>
+                    <primitive name="empty2" type="UInt32"/>
+                    <array name="gameBinaryHeaderTable" length="gameBinaryCount">
+                        <struct name="gameBinaryHeaderTableEntry">
+                            <primitive name="binaryAddress" type="UInt32"/>
+                            <primitive name="binaryLength" type="UInt32"/>  
+                            <array name="gameBinaryName" length="8">
+                                <primitive name="val" type="Char" />
+                            </array>
+                        </struct>
+                    </array>
+                </struct>
+            </pointer>
+            <primitive name="unknownOIDPairOffset" type="UInt32"/>
+            <primitive name="gameBinaryCountOffset2" type="UInt32"/>
+            <primitive name="empty" type="UInt32"/>
+            <primitive name="unknownMagicNumberOffset2" type="UInt32"/>
+            <primitive name="unknownMagicNumber" type="UInt32"/>
+            <primitive name="unknownMagicNumberOffset3" type="UInt32"/>
+            <array name="futureUse" length="340">
+                <primitive name="val" type="UInt8"/>
+            </array>
+        </struct>
+     </struct>
+</data>
