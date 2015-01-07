@@ -23,7 +23,24 @@
 					</array>
 				</struct>
 			</pointer>
-            <primitive name="mediaFileTableOffset" type="UInt32"/>
+            <pointer name="mediaFileTableOffset" type="UInt32" target="mediaFileTable">
+				<struct name="mediaFileTable">
+					<primitive name="endOffset" type="UInt32"/>
+					<primitive name="unused" type="UInt32"/>
+					<array name="mediaFileTableOffsets" length="4">	<!-- TODO: how to calculate "endOffset - currentpos -1 / 4"?! -->
+						<union name="mediaFileUnion">
+							<struct name="mediaFileInfo">
+								<pointer name="mediaFileOffset" type="UInt32" target="mediaFileContent">
+									<array name="mediaFileContent" length="function() { return this.parent.parent.mediaFileLength.value; }">
+										<primitive name="content" type="UInt8"/>
+									</array>
+								</pointer>
+								<primitive name="mediaFileLength" type="UInt32"/>
+							</struct>
+						</union>
+					</array>
+				</struct>
+			</pointer>
             <primitive name="Magic" type="UInt32"/>
             <primitive name="additionalScriptTableOffset" type="UInt32"/>
             <primitive name="gameTableOffset" type="UInt32"/>
