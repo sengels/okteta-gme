@@ -28,7 +28,21 @@
             <array name="empty" length="13">
                 <primitive name="val" type="UInt8"/>
             </array>
-            <primitive name="powerOnSoundOffset" type="UInt32"/>
+            <pointer name="powerOnSoundOffset" type="UInt32">
+                <struct name="playlistlist">
+                    <primitive name="listLength" type="UInt16"/>
+                    <array name="playlistlistValues" length="listLength">
+                        <pointer name="playlistlistValue" type="UInt32">
+                            <struct name="playlist">
+                                <primitive name="listLength" type="UInt16"/>
+                                <array name="playlistValues" length="listLength">
+                                    <primitive name="oid" type="UInt16"/>
+                                </array>
+                            </struct>
+                        </pointer>
+                    </array>
+                </struct>
+            </pointer>
             <array name="empty" length="23">
                 <primitive name="val" type="UInt8"/>
             </array>
