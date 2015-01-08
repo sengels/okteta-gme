@@ -8,7 +8,12 @@
             <primitive name="additionalScriptTableOffset" type="UInt32"/>
             <primitive name="gameTableOffset" type="UInt32"/>
             <primitive name="productID" type="UInt32"/>
-            <primitive name="registerInitValues" type="UInt32"/>
+            <pointer name="registerInitValuesOffset" type="UInt32">
+                <primitive name="registerCount" type="UInt16"/>
+                <array name="registerInitValues" length="registerCount">
+                    <primitive name="val" type="UInt16"/>
+                </array>
+            </pointer>
             <primitive name="magicXORValue" type="UInt8"/>
             <array name="align" length="3">
                 <primitive name="alignEmpty" type="UInt8"/>
