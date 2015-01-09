@@ -2,8 +2,43 @@
 <data>
     <struct name="gmeFile">
         <struct name="gmeHeader">
-            <primitive name="playScriptTableOffset" type="UInt32"/>
-            <primitive name="mediaFileTableOffset" type="UInt32"/>
+            <pointer name="playScriptTableOffset" type="UInt32" target="playScriptTable">
+                <struct name="playScriptTable">
+                    <primitive name="lastUsedOIDCode" type="UInt32"/>
+                    <primitive name="firstUsedOIDCode" type="UInt32"/>
+                    <!--     
+                    Then, 32bit offsets that point to play scripts (see below). These correspond linearly to the OID codes. E.g. WWW_Bauernhof: The first piglet on page 6 has OID code 1499, the corresponding play script is located at 0x766A. The 100th 32bit word in the script table contains that offset. So 4×(OID - 1401) = script table index + 8. The value 1401 in this example is the first used OID code in the product (second 32bit word in the script table). 
+                    Some of these offsets are 0xFFFFFFFF. This indicates that the corresponding OID code is not used within the product.
+                    -->
+                    <array name="playScriptOffsets" length="function() { return this.parent.lastUsedOIDCode.value - this.parent.firstUsedOIDCode.value; }">
+                        <pointer name="playScriptOffset" type="UInt32" target="playScript">
+                            <!-- now the actual play scripts 
+                                A play script consists of a 16bit number (defining the length of the list to follow) and a list of 32bit offsets. The offsets point to script lines.
+                            -->
+                            <struct name="playScript">
+                                <primitive name="playScriptLineCount" type="UInt16"/>
+                                <!--primitive name="val" type="UInt32"/-->
+                            </struct>
+                        </pointer>
+                    </array>
+                </struct>
+            </pointer>
+            <pointer name="mediaFileTableOffset" type="UInt32" target="mediaFileTable">
+                <struct name="mediaFileTable">
+                    <primitive name="endOffset" type="UInt32"/>
+                    <primitive name="unused" type="UInt32"/>
+                    <array name="mediaFileTableOffsets" length="function() { return (this.parent.endOffset.value - this.parent.parent.value)/8 - 1; }">    <!-- TODO: how to calculate "endOffset - currentpos -1 / 4"?! -->
+                        <struct name="mediaFileInfo">
+                            <pointer name="mediaFileOffset" type="UInt32" target="mediaFileContent">
+                                <array name="mediaFileContent" length="function() { return this.parent.parent.mediaFileLength.value; }">
+                                    <primitive name="content" type="UInt8"/>
+                                </array>
+                            </pointer>
+                            <primitive name="mediaFileLength" type="UInt32"/>
+                        </struct>
+                    </array>
+                </struct>
+            </pointer>
             <primitive name="Magic" type="UInt32"/>
             <primitive name="additionalScriptTableOffset" type="UInt32"/>
             <primitive name="gameTableOffset" type="UInt32"/>
@@ -24,6 +59,8 @@
                     <array name="formatString" length="formatStringLength">
                         <primitive name="val" type="Char"/>
                     </array>
+                    <string name="dateString" maxByteCount="8" encoding="ASCII"/>
+                    <string name="languageString" maxByteCount="7" encoding="ASCII"/>
                 </struct>
                 <array name="formatStringByteField" length="64">
                     <primitive name="val" type="UInt8"/>
