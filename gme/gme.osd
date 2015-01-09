@@ -44,10 +44,12 @@
             <primitive name="gameTableOffset" type="UInt32"/>
             <primitive name="productID" type="UInt32"/>
             <pointer name="registerInitValuesOffset" type="UInt32">
-                <primitive name="registerCount" type="UInt16"/>
-                <array name="registerInitValues" length="registerCount">
-                    <primitive name="val" type="UInt16"/>
-                </array>
+                <struct name="registerInitValuesStruct">
+                    <primitive name="registerCount" type="UInt16"/>
+                    <array name="registerInitValues" length="registerCount">
+                        <primitive name="val" type="UInt16"/>
+                    </array>
+                </struct>
             </pointer>
             <primitive name="magicXORValue" type="UInt8"/>
             <array name="align" length="3">
