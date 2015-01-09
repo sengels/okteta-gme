@@ -60,7 +60,7 @@
                         <primitive name="val" type="Char"/>
                     </array>
                     <string name="dateString" maxByteCount="8" encoding="ASCII"/>
-                    <string name="languageString" maxByteCount="7" encoding="ASCII"/>
+                    <string name="languageString" maxByteCount="function() { return 64 - this.parent.formatStringLength.value - this.parent.dateString.length; }" encoding="ASCII"/>
                 </struct>
                 <array name="formatStringByteField" length="64">
                     <primitive name="val" type="UInt8"/>
