@@ -115,16 +115,12 @@
             </pointer>
             <primitive name="Magic" type="UInt32"/>
             <pointer name="additionalScriptTableOffset" type="UInt32">
-                <!-- for now just display the first four bytes, detailed structure is still unknown -->
-                <array name="additionalScriptTable" length="4">
-                        <primitive name="val" type="UInt16"/>
-                </array>
+                <!-- for now just display the first two bytes, detailed structure is still unknown -->
+                <primitive name="val" type="UInt16"/>
             </pointer>
             <pointer name="gameTableOffset" type="UInt32">
-                <!-- for now just display the first four bytes, detailed structure is still unknown, also offset seems to overlap with previous pointer! -->
-                <array name="additionalScriptTable" length="4">
-                        <primitive name="val" type="UInt16"/>
-                </array>
+                <!-- for now just display the first two bytes, detailed structure is still unknown -->
+                <primitive name="val" type="UInt16"/>
             </pointer>
             <primitive name="productID" type="UInt32"/>
             <pointer name="registerInitValuesOffset" type="UInt32">
