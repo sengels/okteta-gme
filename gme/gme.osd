@@ -2,26 +2,34 @@
 <data>
     <!-- some enumerations for the playscripts -->
     <enumDef name="comparisonOperator" type="UInt16">
-        <entry name="equal" value="65529" />
-        <entry name="unknownFFFA" value="65530" />
-        <entry name="less" value="65531" />
-        <entry name="greater" value="65533" />
-        <entry name="unknownFFFE" value="65534" />
-        <entry name="notequal" value="65535" />
+        <entry name="equal" value="0xFFF9" />
+        <entry name="greater" value="0xFFFA" />
+        <entry name="less" value="0xFFFB" />
+        <entry name="greaterOrEqual" value="0xFFFD" />
+        <entry name="lessOrEqual" value="0xFFFE" />
+        <entry name="notequal" value="0xFFFF" />
     </enumDef>
     <enumDef name="registerOrValue" type="UInt8">
         <entry name="register" value="0" />
         <entry name="value" value="1" />
     </enumDef>
     <enumDef name="command" type="UInt16">
-        <entry name="setRegister" value="65529" />
-        <entry name="incrementRegister" value="65520" />
-        <entry name="playAudio" value="65512" />
-        <entry name="playRandom" value="64512" />
-        <entry name="beginGame" value="64768" />
-        <entry name="cancelGameMode" value="64255" />
-        <entry name="decrementRegister" value="62719" />
-        <entry name="unknownFFF8" value="65528" />
+        <entry name="incrementRegister" value="0xFFF0" />
+        <entry name="decrementRegister" value="0xFFF1" />
+        <entry name="multiplyRegister" value="0xFFF2" />
+        <entry name="moduloRegister" value="0xFFF3" />
+        <entry name="divRegister" value="0xFFF4" />
+        <entry name="bitwiseAndRegister" value="0xFFF5" />
+        <entry name="bitwiseOrRegister" value="0xFFF6" />
+        <entry name="bitwiseXorRegister" value="0xFFF7" />
+        <entry name="negateRegister" value="0xFFF8" />
+        <entry name="setRegister" value="0xFFF9" />
+        <entry name="playAudio" value="0xFFE8" />
+        <entry name="playRandom" value="0xFC00" />
+        <entry name="beginGame" value="0xFD00" />
+        <entry name="jumpToScript" value="0xF8FF" />
+        <entry name="cancelGameMode" value="0xFAFF" />
+        <entry name="unknownFFE0" value="0xFFE0" />
     </enumDef>
 
     <struct name="gmeFile">
