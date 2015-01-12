@@ -20,6 +20,8 @@
         <entry name="playRandom" value="64512" />
         <entry name="beginGame" value="64768" />
         <entry name="cancelGameMode" value="64255" />
+        <entry name="decrementRegister" value="62719" />
+        <entry name="unknownFFF8" value="65528" />
     </enumDef>
 
     <struct name="gmeFile">
