@@ -99,7 +99,12 @@
             <array name="empty" length="23">
                 <primitive name="val" type="UInt8"/>
             </array>
-            <primitive name="unknownMagicNumberOffset1" type="UInt32"/>
+            <pointer name="unknownOneArrayOffset" type="UInt32">
+                <!-- The length of this array is near to the OID of the PowerOnSound -->
+                <array name="unknownOneArray" length="function() { return 0x88F; }">
+                    <primitive name="one" type="UInt32"/>
+                </array>
+            </pointer>
             <pointer name="gameBinariesOffset" type="UInt32" target="gameBinaries">
                 <struct name="gameBinaries">
                     <primitive name="gameBinaryCount" type="UInt32"/>
