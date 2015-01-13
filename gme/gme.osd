@@ -81,11 +81,11 @@
             <array name="empty" length="13">
                 <primitive name="val" type="UInt8"/>
             </array>
-            <pointer name="powerOnSoundOffset" type="UInt32">
+            <pointer name="powerOnSoundOffset" type="UInt32" target="playlistlist">
                 <struct name="playlistlist">
                     <primitive name="listLength" type="UInt16"/>
                     <array name="playlistlistValues" length="listLength">
-                        <pointer name="playlistlistValue" type="UInt32">
+                        <pointer name="playlistlistValue" type="UInt32" target="playlist">
                             <struct name="playlist">
                                 <primitive name="listLength" type="UInt16"/>
                                 <array name="playlistValues" length="listLength">
