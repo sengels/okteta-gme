@@ -75,7 +75,9 @@
                     <primitive name="val" type="UInt8"/>
                 </array>
             </union>
-            <primitive name="unknown" type="UInt32"/>
+            <pointer name="unknownOffset" type="UInt32">
+                <primitive name="unknown" type="UInt32"/>
+            </pointer>
             <array name="empty" length="13">
                 <primitive name="val" type="UInt8"/>
             </array>
@@ -122,9 +124,13 @@
             <primitive name="unknownOIDPairOffset" type="UInt32"/>
             <primitive name="gameBinaryCountOffset2" type="UInt32"/>
             <primitive name="empty" type="UInt32"/>
-            <primitive name="unknownMagicNumberOffset2" type="UInt32"/>
+            <pointer name="unknownMagicNumber2Offset" type="UInt32">
+                <primitive name="unknownMagicNumber2" type="UInt32"/>
+            </pointer>
             <primitive name="unknownMagicNumber" type="UInt32"/>
-            <primitive name="unknownMagicNumberOffset3" type="UInt32"/>
+            <pointer name="unknownMagicNumber3Offset" type="UInt32">
+                <primitive name="unknownMagicNumber3" type="UInt16"/>
+            </pointer>
             <array name="futureUse" length="340">
                 <primitive name="val" type="UInt8"/>
             </array>
