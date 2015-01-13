@@ -118,16 +118,37 @@
                                     <primitive name="val" type="char" />
                                 </array>
                             </pointer>
-                            <primitive name="binaryLength" type="UInt32"/>  
-                            <array name="gameBinaryName" length="8">
-                                <primitive name="val" type="Char" />
-                            </array>
+                            <primitive name="binaryLength" type="UInt32"/>
+                            <string name="gameBinaryName" maxByteCount="8"/>
                         </struct>
                     </array>
                 </struct>
             </pointer>
-            <primitive name="unknownOIDPairOffset" type="UInt32"/>
-            <primitive name="gameBinaryCountOffset2" type="UInt32"/>
+            <pointer name="restartStopOffset" type="UInt32">
+                <struct name="restartStopOIDs">
+                    <primitive name="restart" type="UInt16"/>
+                    <primitive name="stop" type="UInt16"/>
+                </struct>
+            </pointer>
+            <pointer name="additionalGameBinariesOffset" type="UInt32" target="gameBinaries">
+                <struct name="gameBinaries">
+                    <primitive name="gameBinaryCount" type="UInt32"/>
+                    <primitive name="empty0" type="UInt32"/>
+                    <primitive name="empty1" type="UInt32"/>
+                    <primitive name="empty2" type="UInt32"/>
+                    <array name="gameBinaryHeaderTable" length="gameBinaryCount">
+                        <struct name="gameBinaryHeaderTableEntry">
+                            <pointer name="binaryAddress" type="UInt32">
+                                <array name="binaryData" length="function() { return this.parent.parent.binaryLength.value; }">
+                                    <primitive name="val" type="char" />
+                                </array>
+                            </pointer>
+                            <primitive name="binaryLength" type="UInt32"/>  
+                            <string name="gameBinaryName" maxByteCount="8"/>
+                        </struct>
+                    </array>
+                </struct>
+            </pointer>
             <primitive name="empty" type="UInt32"/>
             <pointer name="unknownMagicNumber2Offset" type="UInt32">
                 <primitive name="unknownMagicNumber2" type="UInt32"/>
