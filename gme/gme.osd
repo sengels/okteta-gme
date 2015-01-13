@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
+    <!-- some enumerations for the playscripts -->
+    <enumDef name="comparisonOperator" type="UInt16">
+        <entry name="equal" value="65529" />
+        <entry name="unknownFFFA" value="65530" />
+        <entry name="less" value="65531" />
+        <entry name="greater" value="65533" />
+        <entry name="unknownFFFE" value="65534" />
+        <entry name="notequal" value="65535" />
+    </enumDef>
+    <enumDef name="registerOrValue" type="UInt8">
+        <entry name="register" value="0" />
+        <entry name="value" value="1" />
+    </enumDef>
+    <enumDef name="command" type="UInt16">
+        <entry name="setRegister" value="65529" />
+        <entry name="incrementRegister" value="65520" />
+        <entry name="playAudio" value="65512" />
+        <entry name="playRandom" value="64512" />
+        <entry name="beginGame" value="64768" />
+        <entry name="cancelGameMode" value="64255" />
+        <entry name="decrementRegister" value="62719" />
+        <entry name="unknownFFF8" value="65528" />
+    </enumDef>
+
     <struct name="gmeFile">
         <struct name="gmeHeader">
             <pointer name="playScriptTableOffset" type="UInt32" target="playScriptTable">
@@ -17,7 +41,59 @@
                             -->
                             <struct name="playScript">
                                 <primitive name="playScriptLineCount" type="UInt16"/>
-                                <!--primitive name="val" type="UInt32"/-->
+                                <array name="playScriptLineOffsets" length="playScriptLineCount">
+                                    <pointer name="playScriptLineOffset" type="UInt32">
+                                        <!--
+                                        A script line consists of a list of conditionals, a list of actions, and a so called playlist consisting media file table indices.
+
+                                        A script line has the format aaaa conditionals... bbbb actions... cccc media... where
+
+                                            a is the number of conditionals. Each conditional consists of 8 bytes.
+                                            b is the number of actions. Each action is 7 bytes.
+                                            c is a playlist
+                                        -->
+                                        <struct name="playScriptLine">
+                                            <primitive name="conditionalCount" type="UInt16"/>
+                                            <array name="conditionals" length="conditionalCount">
+                                                <!--
+                                                The conditionals are of the format t1 aaaa cccc t2 bbbb
+
+                                                    t1 & t2 (uint8) type of a and b resp. (0 == register, 1 == value)
+                                                    a & b (uint16) value or id of register
+                                                    c (uint16) is the comparison operator
+                                                -->
+                                                <struct name="conditional">
+                                                    <enum name="type1" enum="registerOrValue" type="UInt8"/>
+                                                    <primitive name="value1" type="UInt16"/>
+                                                    <enum name="comparisonOperator" enum="comparisonOperator" type="UInt16"/>
+                                                    <enum name="type2" enum="registerOrValue" type="UInt8"/>
+                                                    <primitive name="value2" type="UInt16"/>
+                                                </struct>
+                                            </array>
+                                            <!--
+                                            The actions are of the format rrrr cccc tt mmmm
+
+                                                r (uint16) id of register
+                                                c (uint16) is the command
+                                                t (uint8) type of m (0 == register, 1 == value)
+                                                m (uint16) value or id of register
+                                            -->
+                                            <primitive name="actionCount" type="UInt16"/>
+                                            <array name="actions" length="actionCount">
+                                                <struct name="action">
+                                                    <primitive name="register" type="UInt16"/>
+                                                    <enum name="command" enum="command" type="UInt16"/>
+                                                    <enum name="type" enum="registerOrValue" type="UInt8"/>
+                                                    <primitive name="value" type="UInt16"/>
+                                                </struct>
+                                            </array>
+                                            <primitive name="listLength" type="UInt16"/>
+                                            <array name="playlistValues" length="listLength">
+                                                <primitive name="oid" type="UInt16"/>
+                                            </array>
+                                        </struct>
+                                    </pointer>
+                                </array>
                             </struct>
                         </pointer>
                     </array>
@@ -49,14 +125,22 @@
                 </struct>
             </pointer>
             <primitive name="Magic" type="UInt32"/>
-            <primitive name="additionalScriptTableOffset" type="UInt32"/>
-            <primitive name="gameTableOffset" type="UInt32"/>
+            <pointer name="additionalScriptTableOffset" type="UInt32">
+                <!-- for now just display the first two bytes, detailed structure is still unknown -->
+                <primitive name="val" type="UInt16"/>
+            </pointer>
+            <pointer name="gameTableOffset" type="UInt32">
+                <!-- for now just display the first two bytes, detailed structure is still unknown -->
+                <primitive name="val" type="UInt16"/>
+            </pointer>
             <primitive name="productID" type="UInt32"/>
             <pointer name="registerInitValuesOffset" type="UInt32">
-                <primitive name="registerCount" type="UInt16"/>
-                <array name="registerInitValues" length="registerCount">
-                    <primitive name="val" type="UInt16"/>
-                </array>
+                <struct name="registerInitValuesStruct">
+                    <primitive name="registerCount" type="UInt16"/>
+                    <array name="registerInitValues" length="registerCount">
+                        <primitive name="val" type="UInt16"/>
+                    </array>
+                </struct>
             </pointer>
             <primitive name="magicXORValue" type="UInt8"/>
             <array name="align" length="3">
