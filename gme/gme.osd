@@ -203,7 +203,7 @@
                                 </array>
                             </pointer>
                             <primitive name="binaryLength" type="UInt32"/>
-                            <string name="gameBinaryName" maxByteCount="8"/>
+                            <string name="gameBinaryName" maxByteCount="8" encoding="ASCII"/>
                         </struct>
                     </array>
                 </struct>
@@ -228,7 +228,7 @@
                                 </array>
                             </pointer>
                             <primitive name="binaryLength" type="UInt32"/>  
-                            <string name="gameBinaryName" maxByteCount="8"/>
+                            <string name="gameBinaryName" maxByteCount="8" encoding="ASCII"/>
                         </struct>
                     </array>
                 </struct>
