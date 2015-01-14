@@ -159,8 +159,30 @@
                     <primitive name="val" type="UInt8"/>
                 </array>
             </union>
-            <pointer name="unknownOffset" type="UInt32">
-                <primitive name="unknown" type="UInt32"/>
+            <pointer name="additionalMediaFileTableOffset" type="UInt32" target="mediaFileTable">
+                <struct name="mediaFileTable">
+                    <struct name="mediaFileInfo">
+                        <!--
+                            This is the special first element which is used to calculate the length of the mediaFileTable.
+                        -->
+                        <pointer name="mediaFileOffset" type="UInt32" target="mediaFileContent">
+                            <array name="mediaFileContent" length="function() { return this.parent.parent.mediaFileLength.value; }">
+                                <primitive name="content" type="UInt8"/>
+                            </array>
+                        </pointer>
+                        <primitive name="mediaFileLength" type="UInt32"/>
+                    </struct>
+                    <array name="mediaFileTableOffsets" length="function() { return (this.parent.mediaFileInfo.mediaFileOffset.value - this.parent.parent.value)/8 - 1; }">
+                        <struct name="mediaFileInfo">
+                            <pointer name="mediaFileOffset" type="UInt32" target="mediaFileContent">
+                                <array name="mediaFileContent" length="function() { return this.parent.parent.mediaFileLength.value; }">
+                                    <primitive name="content" type="UInt8"/>
+                                </array>
+                            </pointer>
+                            <primitive name="mediaFileLength" type="UInt32"/>
+                        </struct>
+                    </array>
+                </struct>
             </pointer>
             <array name="empty" length="13">
                 <primitive name="val" type="UInt8"/>
@@ -227,19 +249,51 @@
                                     <primitive name="val" type="char" />
                                 </array>
                             </pointer>
-                            <primitive name="binaryLength" type="UInt32"/>  
+                            <primitive name="binaryLength" type="UInt32"/>
                             <string name="gameBinaryName" maxByteCount="8" encoding="ASCII"/>
                         </struct>
                     </array>
                 </struct>
             </pointer>
             <primitive name="empty" type="UInt32"/>
-            <pointer name="unknownMagicNumber2Offset" type="UInt32">
-                <primitive name="unknownMagicNumber2" type="UInt32"/>
+            <pointer name="mainGameBinariesOffset" type="UInt32" target="gameBinaries">
+                <struct name="gameBinaries">
+                    <primitive name="gameBinaryCount" type="UInt32"/>
+                    <primitive name="empty0" type="UInt32"/>
+                    <primitive name="empty1" type="UInt32"/>
+                    <primitive name="empty2" type="UInt32"/>
+                    <array name="gameBinaryHeaderTable" length="gameBinaryCount">
+                        <struct name="gameBinaryHeaderTableEntry">
+                            <pointer name="binaryAddress" type="UInt32">
+                                <array name="binaryData" length="function() { return this.parent.parent.binaryLength.value; }">
+                                    <primitive name="val" type="char" />
+                                </array>
+                            </pointer>
+                            <primitive name="binaryLength" type="UInt32"/>
+                            <string name="gameBinaryName" maxByteCount="8" encoding="ASCII"/>
+                        </struct>
+                    </array>
+                </struct>
             </pointer>
             <primitive name="unknownMagicNumber" type="UInt32"/>
-            <pointer name="unknownMagicNumber3Offset" type="UInt32">
-                <primitive name="unknownMagicNumber3" type="UInt16"/>
+            <pointer name="additionalMainGameBinariesOffset" type="UInt32" target="gameBinaries">
+                <struct name="gameBinaries">
+                    <primitive name="gameBinaryCount" type="UInt32"/>
+                    <primitive name="empty0" type="UInt32"/>
+                    <primitive name="empty1" type="UInt32"/>
+                    <primitive name="empty2" type="UInt32"/>
+                    <array name="gameBinaryHeaderTable" length="gameBinaryCount">
+                        <struct name="gameBinaryHeaderTableEntry">
+                            <pointer name="binaryAddress" type="UInt32">
+                                <array name="binaryData" length="function() { return this.parent.parent.binaryLength.value; }">
+                                    <primitive name="val" type="char" />
+                                </array>
+                            </pointer>
+                            <primitive name="binaryLength" type="UInt32"/>
+                            <string name="gameBinaryName" maxByteCount="8" encoding="ASCII"/>
+                        </struct>
+                    </array>
+                </struct>
             </pointer>
             <array name="futureUse" length="340">
                 <primitive name="val" type="UInt8"/>
