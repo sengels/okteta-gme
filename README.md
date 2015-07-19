@@ -9,7 +9,7 @@ Then in Okteta, in the menu choose "Tool" and enable "Structures". In the Struct
 
 ## useful links
 * [Tiptoi Game Format](https://github.com/entropia/tip-toi-reveng/blob/master/GME-Format.md)
-* [Okteta structure description (German)](https://docs.kde.org/stable/de/kdesdk/okteta/tools-structures.html)
+* [Okteta structure description](https://docs.kde.org/stable5/en/kdesdk/okteta/tools-structures.html)
 * [Okteta structure tutorial](https://frinring.wordpress.com/2010/01/16/tutorial-create-your-own-okteta-structure-definitions/)
 * [Okteta structure samples](https://projects.kde.org/projects/kde/kdesdk/okteta/repository/revisions/master/show/kasten/controllers/view/structures/examples/okteta/structures)
 * [Okteta OSD format XSD](https://projects.kde.org/projects/kde/kdesdk/okteta/repository/revisions/master/entry/kasten/controllers/view/structures/schema/structuredefs.xsd) (albeit incomplete, e.g. misses pointers)
